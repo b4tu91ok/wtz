@@ -92,7 +92,7 @@ if ! _skip_install elasticsearch; then
     # for elasticsearch 2.4.x declare next
     # elastic_version=2.4
     version=${elastic_version:-1.7}
-   sudo apt-get install apt-transport-https
+#   sudo apt-get install apt-transport-https
    wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
    add-apt-repository "deb https://artifacts.elastic.co/packages/7.x/apt stable main"
 
