@@ -95,20 +95,20 @@ if ! _skip_install elasticsearch; then
 fi
 
 # tune elasticsearch
-#cfg='/etc/elasticsearch/elasticsearch.yml'
-#[ -f "${cfg}.bak" ] || mv $cfg $cfg.bak
-#es_backups=/var/tmp/elasticsearch
-#if [ ! -d "$es_backups" ]; then
-#    mkdir $es_backups
-#    chown elasticsearch:elasticsearch $es_backups
-#fi
-#cat <<EOF > $cfg
-#network.bind_host: 0.0.0.0
-#node.local: true
-#discovery.zen.ping.multicast: false
-#path.repo: $es_backups
-#index.number_of_replicas: 0
-#EOF
+cfg='/etc/elasticsearch/elasticsearch.yml'
+[ -f "${cfg}.bak" ] || mv $cfg $cfg.bak
+es_backups=/var/tmp/elasticsearch
+if [ ! -d "$es_backups" ]; then
+    mkdir $es_backups
+    chown elasticsearch:elasticsearch $es_backups
+fi
+cat <<EOF > $cfg
+network.bind_host: 0.0.0.0
+node.local: true
+discovery.zen.ping.multicast: false
+path.repo: $es_backups
+index.number_of_replicas: 0
+EOF
 
 systemctl enable elasticsearch
 systemctl restart elasticsearch
