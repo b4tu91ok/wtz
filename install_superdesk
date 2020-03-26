@@ -40,9 +40,9 @@ fi
 
 # mongo
 if ! _skip_install mongodb-org-server; then
-    apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5
-    echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-3.6.list
-
+    wget -qO - https://www.mongodb.org/static/pgp/server-3.4.asc | apt-key add - 
+    echo "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse" \
+        > /etc/apt/sources.list.d/mongodb-org-3.4.list
     apt-get -y update
     apt-get -y install --no-install-recommends \
         mongodb-org-server \
@@ -95,20 +95,20 @@ if ! _skip_install elasticsearch; then
 fi
 
 # tune elasticsearch
-cfg='/etc/elasticsearch/elasticsearch.yml'
-[ -f "${cfg}.bak" ] || mv $cfg $cfg.bak
-es_backups=/var/tmp/elasticsearch
-if [ ! -d "$es_backups" ]; then
-    mkdir $es_backups
-    chown elasticsearch:elasticsearch $es_backups
-fi
-cat <<EOF > $cfg
-network.bind_host: 0.0.0.0
-node.local: true
-discovery.zen.ping.multicast: false
-path.repo: $es_backups
-index.number_of_replicas: 0
-EOF
+#cfg='/etc/elasticsearch/elasticsearch.yml'
+#[ -f "${cfg}.bak" ] || mv $cfg $cfg.bak
+#es_backups=/var/tmp/elasticsearch
+#if [ ! -d "$es_backups" ]; then
+#    mkdir $es_backups
+#    chown elasticsearch:elasticsearch $es_backups
+#fi
+$cat <<EOF > $cfg
+$network.bind_host: 0.0.0.0
+$node.local: true
+$discovery.zen.ping.multicast: false
+$path.repo: $es_backups
+$index.number_of_replicas: 0
+$EOF
 
 systemctl enable elasticsearch
 systemctl restart elasticsearch
@@ -285,7 +285,7 @@ _sample_data() {
 if _missing_db; then
     _sample_data
     python manage.py app:initialize_data $sample_data
-    python manage.py users:create -u admin -p admin -e 'admin@example.com' --admin
+    python manage.py users:create -u admin -p admin -e 'admin@wartzoe.co.id' --admin
 else
     python manage.py app:initialize_data
 fi
