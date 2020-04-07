@@ -177,9 +177,9 @@ if ! _skip_install nodejs; then
     npm install -g minimatch
 fi
 
-node --version
-npm --version
-grunt --version
+#node --version
+#npm --version
+#grunt --version
 
 ## virtualenv and activate script
 env=/opt/superdesk/env
