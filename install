@@ -163,7 +163,7 @@ libxmlsec1-dev
 
 node -v
 npm -v
-grunt -v
+grunt --version
 
 ## virtualenv and activate script
 env=/opt/superdesk/env
