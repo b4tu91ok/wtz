@@ -161,9 +161,9 @@ libxmlsec1-dev
 #    npm install -g grunt-cli
 #fi
 
-node -v
-npm -v
-grunt --version
+#node -v
+#npm -v
+#grunt --version
 
 ## virtualenv and activate script
 env=/opt/superdesk/env
